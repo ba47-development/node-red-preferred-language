@@ -1,0 +1,17 @@
+{
+    "name": "@ba47/node-red-contrib-preferred-language",
+    "version": "0.6.0",
+    "description": "Determine preferred language from browser's Accept-Language.",
+    "keywords": [
+        "node-red",
+        "i18n",
+        "ba47"
+    ],
+    "author": "Thomas Zimmermann <development@ba47.net> https://ba47.net/development",
+    "license": "MIT",
+    "node-red": {
+        "nodes": {
+            "preferred-language": "src/preferred-language.js"
+        }
+    }
+}

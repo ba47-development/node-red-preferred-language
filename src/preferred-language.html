@@ -1,0 +1,91 @@
+<script type='text/javascript'>
+    RED.nodes.registerType('ba47-preferred-language', {
+        category: 'i18n',
+        color: '#98b8a1',
+        icon: 'font-awesome/fa-language',
+        defaults: {
+            name: { value: '' },
+            preferredLanguages: { value: '' },
+            preferredLanguagesType: { value: 'str' },
+            availableLanguages: { value: '["de-DE","de","en"]' },
+            availableLanguagesType: { value: 'json' },
+            defaultLanguage: { value: 'de', required: true },
+            defaultLanguageType: { value: 'str' }
+        },
+        inputs: 1,
+        outputs: 1,
+        label: function () {
+            return this.name || 'preferred language';
+        },
+        paletteLabel: "pref lang",
+        outputLabels: ["language"],
+
+        oneditprepare: function () {
+            $('#node-input-preferredLanguages').typedInput({
+                type: 'str',
+                types: ['str', 'msg', 'flow', 'global', 'jsonata', 'env'],
+                typeField: '#node-input-preferredLanguagesType'
+            });
+
+            $('#node-input-availableLanguages').typedInput({
+                type: 'json',
+                types: ['json', 'msg', 'flow', 'global', 'jsonata', 'env'],
+                typeField: '#node-input-availableLanguagesType'
+            });
+
+            $('#node-input-defaultLanguage').typedInput({
+                type: 'str',
+                types: ['str', 'msg', 'flow', 'global', 'jsonata', 'env'],
+                typeField: '#node-input-defaultLanguageType'
+            });
+        }
+    });
+</script>
+
+
+<script type="text/html" data-template-name="ba47-preferred-language">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <hr>
+
+    <div class="form-row">
+        <label for="node-input-preferredLanguages"><i class="fa fa-user"></i> Preferred Languages<sup>1</sup></label>
+        <input type="text" id="node-input-preferredLanguages" placeholder="preferred user languages">
+        <input type="hidden" id="node-input-preferredLanguagesType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-availableLanguages"><i class="fa fa-language"></i> Available Languages<sup>2</sup></label>
+        <input type="json" id="node-input-availableLanguages" placeholder="available languages">
+        <input type="hidden" id="node-input-availableLanguagesType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-defaultLanguage"><i class="fa fa-cog fa-spin"></i> Default Language<sup>3</sup></label>
+        <input type="text" id="node-input-defaultLanguage" placeholder="(required) default language">
+        <input type="hidden" id="node-input-defaultLanguageType">
+    </div>
+    
+    <hr>
+    <div class="form-tips"><sup>1</sup> leave empty to use HTML headers 'Accept-Language'.</div>
+    <div class="form-tips"><sup>2</sup> <i>array</i> of available languages.</div>
+    <div class="form-tips"><sup>3</sup> single language string.</div>
+</script>
+
+
+<script type="text/markdown" data-help-name="ba47-preferred-language">
+Version 0.6.0     
+Determines the perferred user language from an 'Accept-Language' type input string.
+
+### Input
+: Preferred Languages (string) : (optional) list of preferred languages. If empty uses `req.headers.Accept-Language`.
+: Available Languages (array): (optional) JSON array, or comma separated string of supported languages, ordered by preference. E.g. `["en-UK","en","de"]`.
+: Default Language (string) : (required) default language to return, if no language fits. It makes pretty much sense to use *one* of the available languages.
+
+### Outputs
+: language (string) : selected preferred language. Either one of the available languages, or the default language.
+
+### References
+- [Accept-Language documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) - Mozilla docs
+- [Wikipedia - List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) - language codes
+</script>
