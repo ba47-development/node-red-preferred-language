@@ -26,7 +26,7 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             msg.language = undefined; // clear
 
-            let prefLang, availLang, defaultLang;
+            let defaultLang, prefLang, availLang;
             try {
                 defaultLang = evaluate(RED, node, msg, 'defaultLanguage');
 
@@ -73,7 +73,7 @@ module.exports = function (RED) {
 
                 // search language plus region
                 for (const lang in prefLang) {
-                    selLang = availLang.find((x) => x.toLowerCase() === prefLang[lang][0].toLowerCase());
+                    const selLang = availLang.find((x) => x.toLowerCase() === prefLang[lang][0].toLowerCase());
                     if (selLang) {
                         msg.language = selLang;
                         break;
@@ -83,7 +83,7 @@ module.exports = function (RED) {
                 if (!msg.language) {
                     // if here, no full definition had been found, so search first two language chars only
                     for (const lang in prefLang) {
-                        selLang = availLang.find(
+                        const selLang = availLang.find(
                             (x) => x.substr(0, 2).toLowerCase() === prefLang[lang][0].substr(0, 2).toLowerCase()
                         );
                         if (selLang) {
@@ -100,7 +100,6 @@ module.exports = function (RED) {
             }
 
             node.status({ fill: 'yellow', shape: 'ring', text: 'language: ' + msg.language });
-
             send(msg);
             done();
         });

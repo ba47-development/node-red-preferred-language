@@ -9,6 +9,10 @@
     ],
     "author": "Thomas Zimmermann <development@ba47.net> https://ba47.net/development",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ba47-thomas/node-red-contrib-preferred-language.git"
+    },
     "node-red": {
         "nodes": {
             "preferred-language": "src/preferred-language.js"

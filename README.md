@@ -18,3 +18,7 @@ It is intended to be used for multilingual flows that need to determine the pref
 
 -   [Accept-Language documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) - Mozilla docs
 -   [Wikipedia - List of ISO 639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) - language codes
+
+# License
+
+[MIT License](LICENSE).
