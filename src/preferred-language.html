@@ -80,7 +80,7 @@ Determines the perferred user language from an 'Accept-Language' type input stri
 ### Input
 : Preferred Languages (string) : (optional) list of preferred languages. If empty uses `req.headers.Accept-Language`.
 : Available Languages (array): (optional) JSON array, or comma separated string of supported languages, ordered by preference. E.g. `["en-UK","en","de"]`.
-: Default Language (string) : (required) default language to return, if no language fits. It makes pretty much sense to use *one* of the available languages.
+: Default Language (string) : (required) default language to return, if none of the languages fits. It makes pretty much sense to use *one* of the available languages.
 
 ### Outputs
 : language (string) : selected preferred language. Either one of the available languages, or the default language.

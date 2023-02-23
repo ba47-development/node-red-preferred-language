@@ -1,8 +1,8 @@
 # Preferred Language
 
-This node determines the preferred language from an 'Accept-Language' type string, as it is available in HTTP headers.
+This node determines the preferred language from an 'Accept-Language' type string, as it is given by in HTTP headers.
 
-It is intended to be used for multilingual flows that need to determine the preferred language of the caller, e.g. a web site user.
+It is intended to be used for multilingual flows that need to determine the preferred language of the caller, e.g. a web site user. The node expects a list of supported languages to choose from.
 
 ## Nodes
 
