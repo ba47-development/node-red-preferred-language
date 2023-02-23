@@ -1,0 +1,23 @@
+# GIT
+.git
+.gitignore
+
+# Logs
+logs
+*.log
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Output of 'npm pack'
+*.tgz
+
+# Backup folders
+Automatisch beibehalten von Corel/
