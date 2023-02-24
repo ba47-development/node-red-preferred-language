@@ -1,5 +1,5 @@
 {
-    "name": "@ba47/node-red-contrib-preferred-language",
+    "name": "@ba47/node-red-preferred-language",
     "version": "0.6.0",
     "description": "Determine preferred language from browser's Accept-Language.",
     "keywords": [
