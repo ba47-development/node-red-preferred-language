@@ -105,5 +105,5 @@ module.exports = function (RED) {
         });
     }
 
-    RED.nodes.registerType('ba47-preferred-language', preferredLanguageNode);
+    RED.nodes.registerType('preferred-language', preferredLanguageNode);
 };

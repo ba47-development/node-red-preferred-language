@@ -1,6 +1,6 @@
 {
     "name": "@ba47/node-red-preferred-language",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "Determine preferred language from browser's Accept-Language.",
     "keywords": [
         "node-red",
@@ -14,8 +14,12 @@
         "url": "https://github.com/ba47-development/node-red-preferred-language/"
     },
     "node-red": {
+        "version": ">=2.2.0",
         "nodes": {
             "preferred-language": "src/preferred-language.js"
         }
+    },
+    "engines": {
+        "node": ">=14.0.0"
     }
 }
