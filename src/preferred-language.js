@@ -3,9 +3,8 @@
 function evaluate(RED, node, msg, field) {
     let ret;
     RED.util.evaluateNodeProperty(node[field], node[field + 'Type'], node, msg, (err, value) => {
-        if (err) {
-            throw new Error(`Unable to evaluate '${field}'`);
-        } else ret = value;
+        if (err) throw new Error(`Unable to evaluate '${field}'`);
+        else ret = value;
     });
 
     return ret;
@@ -29,15 +28,12 @@ module.exports = function (RED) {
             let defaultLang, prefLang, availLang;
             try {
                 defaultLang = evaluate(RED, node, msg, 'defaultLanguage');
-
-                if (!defaultLang || typeof defaultLang !== 'string') {
-                    throw new Error('Default Language not defined!');
-                }
+                if (!defaultLang || typeof defaultLang !== 'string') throw new Error('Default Language not defined!');
 
                 prefLang = evaluate(RED, node, msg, 'preferredLanguages');
                 if (!prefLang || typeof prefLang !== 'string')
                     if (msg.req && msg.req.headers && msg.req.headers['accept-language']) {
-                        // use HTML header Accept-Language string instead
+                        // use HTML req.header 'Accept-Language' string instead
                         prefLang = msg.req.headers['accept-language'];
                     }
 
@@ -45,53 +41,51 @@ module.exports = function (RED) {
                 if (availLang) {
                     if (typeof availLang === 'string') availLang = availLang.split(',');
 
-                    if (!Array.isArray(availLang)) {
-                        if (Object.keys(availLang).length === 0) availLang = [defaultLang];
-                    }
+                    if (!Array.isArray(availLang)) if (Object.keys(availLang).length === 0) availLang = [defaultLang];
                 } else availLang = [defaultLang];
-            } catch (err) {
-                node.status({ fill: 'red', shape: 'dot', text: err });
-                done(err);
-                return msg;
-            }
 
-            if (prefLang) {
-                prefLang = prefLang.split(',');
+                if (prefLang) {
+                    prefLang = prefLang.split(',');
 
-                // enhance to full prefLang array with quantity
-                prefLang.forEach(function (item, idx, arr) {
-                    const langDef = item.split(';');
-                    if (langDef.length === 1) langDef.push('q=1.0');
-                    arr[idx] = langDef;
-                });
-                // sort by quantity
-                prefLang.sort(function (a, b) {
-                    if (a[1] < b[1]) return 1;
-                    else if (a[1] > b[1]) return -1;
-                    else return 0;
-                });
+                    // enhance to full prefLang array with quantity
+                    prefLang.forEach(function (item, idx, arr) {
+                        const langDef = item.split(';');
+                        if (langDef.length === 1) langDef.push('q=1.0');
+                        arr[idx] = langDef;
+                    });
+                    // sort by quantity
+                    prefLang.sort(function (a, b) {
+                        if (a[1] < b[1]) return 1;
+                        else if (a[1] > b[1]) return -1;
+                        else return 0;
+                    });
 
-                // search language plus region
-                for (const lang in prefLang) {
-                    const selLang = availLang.find((x) => x.toLowerCase() === prefLang[lang][0].toLowerCase());
-                    if (selLang) {
-                        msg.language = selLang;
-                        break;
-                    }
-                }
-
-                if (!msg.language) {
-                    // if here, no full definition had been found, so search first two language chars only
+                    // search language plus region
                     for (const lang in prefLang) {
-                        const selLang = availLang.find(
-                            (x) => x.substr(0, 2).toLowerCase() === prefLang[lang][0].substr(0, 2).toLowerCase()
-                        );
+                        const selLang = availLang.find((x) => x.toLowerCase() === prefLang[lang][0].toLowerCase());
                         if (selLang) {
                             msg.language = selLang;
                             break;
                         }
                     }
+
+                    if (!msg.language) {
+                        // if here, no full definition had been found, so search first two language chars only
+                        for (const lang in prefLang) {
+                            const selLang = availLang.find(
+                                (x) => x.substr(0, 2).toLowerCase() === prefLang[lang][0].substr(0, 2).toLowerCase()
+                            );
+                            if (selLang) {
+                                msg.language = selLang;
+                                break;
+                            }
+                        }
+                    }
                 }
+            } catch (err) {
+                node.status({ fill: 'red', shape: 'dot', text: err });
+                done(err);
+                return msg;
             }
 
             if (!msg.language) {
@@ -99,7 +93,7 @@ module.exports = function (RED) {
                 msg.language = defaultLang;
             }
 
-            node.status({ fill: 'yellow', shape: 'ring', text: 'language: ' + msg.language });
+            node.status({ fill: 'green', shape: 'ring', text: 'language: ' + msg.language });
             send(msg);
             done();
         });

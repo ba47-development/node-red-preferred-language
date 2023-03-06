@@ -1,6 +1,6 @@
 {
     "name": "@ba47/node-red-preferred-language",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "description": "Determine preferred language from browser's Accept-Language.",
     "keywords": [
         "node-red",

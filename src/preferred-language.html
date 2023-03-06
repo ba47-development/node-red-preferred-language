@@ -67,14 +67,14 @@
     </div>
     
     <hr>
-    <div class="form-tips"><sup>1</sup> leave empty to use HTML headers 'Accept-Language'.</div>
+    <div class="form-tips"><sup>1</sup> leave empty to use HTML req.headers 'Accept-Language'.</div>
     <div class="form-tips"><sup>2</sup> <i>array</i> of available languages.</div>
     <div class="form-tips"><sup>3</sup> single language string.</div>
 </script>
 
 
 <script type="text/markdown" data-help-name="preferred-language">
-Version 0.6.1       
+Version 0.6.2       
 Determines the perferred user language from an 'Accept-Language' type input string.
 
 ### Input
@@ -82,7 +82,7 @@ Determines the perferred user language from an 'Accept-Language' type input stri
 : Available Languages (array): (optional) JSON array, or comma separated string of supported languages, ordered by preference. E.g. `["en-UK","en","de"]`.
 : Default Language (string) : (required) default language to return, if none of the languages fits. It makes pretty much sense to use *one* of the available languages.
 
-### Outputs
+### Output
 : language (string) : selected preferred language. Either one of the available languages, or the default language.
 
 ### References

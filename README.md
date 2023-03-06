@@ -1,6 +1,7 @@
 # Preferred Language
 
-This node determines the preferred language from an 'Accept-Language' type string, as it is given by HTTP headers.
+This node determines the preferred language from an 'Accept-Language' type string, as it is given by HTTP req.headers.  
+E.g. something like `de-CH;q=0.7,de;q=0.8,en;q=0.5,de-DE;q=0.9,fr;q=0.3`.
 
 It is intended to be used for multilingual flows that need to determine the preferred language of the caller, e.g. a web site user. The node expects a list of languages supported by the flow to choose from.
 
@@ -12,7 +13,7 @@ It is intended to be used for multilingual flows that need to determine the pref
 ## Example:
 
 ```
-[{"id":"57d41efe57b1f0bf","type":"ba47-preferred-language","z":"4deb3ee328afd338","name":"","preferredLanguages":"","preferredLanguagesType":"str","availableLanguages":"[\"en-US\",\"en\",\"fr\",\"de-DE\",\"de\"]","availableLanguagesType":"json","defaultLanguage":"DEFAULT_LANGUAGE","defaultLanguageType":"env","x":390,"y":320,"wires":[["18ea5aa0de994861","7be06ee01a6d1a5f"]]},{"id":"5d7f6eaeed32b11c","type":"http in","z":"4deb3ee328afd338","name":"","url":"/api/myapi","method":"get","upload":false,"swaggerDoc":"","x":140,"y":320,"wires":[["57d41efe57b1f0bf"]]},{"id":"18ea5aa0de994861","type":"http response","z":"4deb3ee328afd338","name":"","statusCode":"","headers":{},"x":610,"y":320,"wires":[]},{"id":"7be06ee01a6d1a5f","type":"debug","z":"4deb3ee328afd338","name":"language","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"language","targetType":"msg","statusVal":"","statusType":"auto","x":620,"y":380,"wires":[]},{"id":"d596356f45541a0d","type":"inject","z":"4deb3ee328afd338","name":"simulation","props":[{"p":"req.headers.accept-language","v":"de-CH;q=0.7,de;q=0.8,en;q=0.5,de-DE;q=0.9,fr;q=0.3","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","x":140,"y":280,"wires":[["57d41efe57b1f0bf"]],"info":"`req.headers.accept-language` usually comes from an http request."}]
+[{"id":"5d7f6eaeed32b11c","type":"http in","z":"b38f670dac5c2381","name":"","url":"/api/myapi","method":"get","upload":false,"swaggerDoc":"","x":240,"y":180,"wires":[["8e71f3708e810eae"]]},{"id":"18ea5aa0de994861","type":"http response","z":"b38f670dac5c2381","name":"","statusCode":"","headers":{},"x":710,"y":180,"wires":[]},{"id":"7be06ee01a6d1a5f","type":"debug","z":"b38f670dac5c2381","name":"language","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"language","targetType":"msg","statusVal":"","statusType":"auto","x":720,"y":240,"wires":[]},{"id":"d596356f45541a0d","type":"inject","z":"b38f670dac5c2381","name":"simulation","props":[{"p":"req.headers.accept-language","v":"de-CH;q=0.7,de;q=0.8,en;q=0.5,de-DE;q=0.9,fr;q=0.3","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","x":240,"y":140,"wires":[["8e71f3708e810eae"]],"info":"`req.headers.accept-language` usually comes from an http request."},{"id":"8e71f3708e810eae","type":"preferred-language","z":"b38f670dac5c2381","name":"","preferredLanguages":"","preferredLanguagesType":"str","availableLanguages":"[\"en-US\",\"en\",\"de-DE\",\"de\",\"fr\"]","availableLanguagesType":"json","defaultLanguage":"en","defaultLanguageType":"str","x":490,"y":180,"wires":[["18ea5aa0de994861","7be06ee01a6d1a5f"]]}]
 ```
 
 ## References
